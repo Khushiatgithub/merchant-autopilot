@@ -28,6 +28,7 @@ export const api = {
   audit: () => api.request<unknown[]>('/audit'),
   createPaymentLink: (body: object) => api.request<Record<string, unknown>>('/payments/create-link', { method: 'POST', body: JSON.stringify(body) }),
   verifyPayment: (body: object) => api.request<Record<string, unknown>>('/payments/verify', { method: 'POST', body: JSON.stringify(body) }),
+  expirePayment: (id: string) => api.request<Record<string, unknown>>(`/payments/${id}/expire`, { method: 'POST' }),
 };
 
 function demoResponse<T>(path: string, options: RequestInit = {}): T {
