@@ -3,6 +3,9 @@
 
 Merchant Autopilot turns a revenue goal into explainable, approval-gated growth campaigns. It uses Scout to find opportunities, Strategist to plan offers, and Executor to create Razorpay Test Mode links only after merchant approval. It never charges automatically.
 
+<img width="1897" height="882" alt="Screenshot 2026-08-25 182051" src="https://github.com/user-attachments/assets/3983a490-c13a-4323-9eda-6999f5493205" />
+
+
 ## Architecture
 
 ```mermaid
