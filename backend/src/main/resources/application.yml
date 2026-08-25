@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/merchant_autopilot}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+ai:
+  base-url: ${AI_ENGINE_URL:http://localhost:8000}
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID:}
+  key-secret: ${RAZORPAY_KEY_SECRET:}
+jwt:
+  secret: ${JWT_SECRET:merchant-autopilot-change-this-secret-key-please}
+  expiration-minutes: ${JWT_EXPIRATION_MINUTES:480}
