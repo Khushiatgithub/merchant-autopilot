@@ -1,14 +1,27 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8091}
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/merchant_autopilot}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:postgres}
+    url: ${DATABASE_URL:jdbc:h2:mem:merchant_autopilot;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_LOWER=TRUE}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     open-in-view: false
+    defer-datasource-initialization: true
 ai:
   base-url: ${AI_ENGINE_URL:http://localhost:8000}
 razorpay:

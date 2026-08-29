@@ -18,8 +18,6 @@ public class PaymentLink {
   protected PaymentLink() {}
   public PaymentLink(Campaign campaign, String razorpayLinkId, String shortUrl) { this.campaign = campaign; this.razorpayLinkId = razorpayLinkId; this.shortUrl = shortUrl; }
   public void markPaid() { this.status = "PAID"; this.verifiedAt = Instant.now(); }
-  public void markFailed() { this.status = "FAILED"; }
-  public void incrementRetry() { this.retryCount++; }
   public UUID getId() { return id; }
   public String getRazorpayLinkId() { return razorpayLinkId; }
   public String getShortUrl() { return shortUrl; }

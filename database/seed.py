@@ -28,7 +28,7 @@ with OUT.open("w", encoding="utf-8") as out:
     out.write(
         "INSERT INTO merchants (id, name, email, password_hash) VALUES "
         f"('{MERCHANT_ID}', 'Northstar Goods', 'neha@northstar.example', "
-        "'$2a$10$7EqJtq98hPqEX7fNZaFWoO4s9R3G3X4wBq6oXG1Pq5s6fZf2XvYqK');\n"
+        "'$2b$10$1tBqSy6fddH0XQCxpDZdsuA7WQlDpi89QrbwD4IjpGdjqpxdvpR3m');\n"
     )
 
     product_ids = []

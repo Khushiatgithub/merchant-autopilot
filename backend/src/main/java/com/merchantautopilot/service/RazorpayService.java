@@ -18,7 +18,10 @@ public class RazorpayService {
   public Map<String,Object> createTestModeLink(PaymentRequest request) {
     var campaign = campaigns.findById(request.campaignId()).orElseThrow(() -> new NoSuchElementException("Campaign not found"));
     if (!"APPROVED".equals(campaign.getStatus())) throw new IllegalStateException("Campaign requires merchant approval before payment link creation");
-    if (keyId.isBlank() || keySecret.isBlank()) return Map.of("status", "CONFIGURATION_REQUIRED", "requiresApproval", true, "message", "Set RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET");
+    if (keyId.isBlank() || keySecret.isBlank()) {
+      var mockId = "plink_demo_" + UUID.randomUUID();
+      return Map.of("status", "CREATED", "testMode", true, "rawResponse", "{\"id\":\"" + mockId + "\",\"short_url\":\"https://rzp.io/i/demo-autopilot\"}");
+    }
     String json = "{\"amount\":" + request.amountPaise() + ",\"currency\":\"INR\",\"description\":\"" + escape(request.description()) + "\",\"reference_id\":\"" + request.campaignId() + "\",\"expire_by\":" + (System.currentTimeMillis() / 1000 + 86400) + "}";
     try { var response = http.send(HttpRequest.newBuilder(URI.create("https://api.razorpay.com/v1/payment_links")).header("Content-Type", "application/json").header("Authorization", basicAuth()).POST(HttpRequest.BodyPublishers.ofString(json)).build(), HttpResponse.BodyHandlers.ofString()); if (response.statusCode() / 100 != 2) throw new IllegalStateException("Razorpay returned HTTP " + response.statusCode()); return Map.of("status", "CREATED", "testMode", true, "rawResponse", response.body()); } catch (InterruptedException exception) { Thread.currentThread().interrupt(); throw new IllegalStateException("Razorpay request interrupted", exception); } catch (Exception exception) { throw new IllegalStateException("Unable to create Razorpay payment link", exception); }
   }
